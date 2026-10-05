@@ -85,6 +85,49 @@ def register_commands(client, store, quiz_engine):
 			f"difficulty = {settings['difficulty'].title()}."
 		)
 
+	@client.tree.command(name="help", description="Show KnightQuiz commands")
+	async def help_command(interaction: discord.Interaction):
+		embed = discord.Embed(
+			title="KnightQuiz Help",
+			description="Here are the available KnightQuiz commands:",
+			color=discord.Color.blue(),
+		)
+		embed.add_field(name="/quiz", value="Start a quiz", inline=False)
+		embed.add_field(
+			name="/leaderboard",
+			value="View the server leaderboard",
+			inline=False,
+		)
+		embed.add_field(
+			name="/quiz-settings",
+			value="Configure server quiz settings",
+			inline=False,
+		)
+		embed.add_field(
+			name="/about",
+			value="Learn about KnightQuiz",
+			inline=False,
+		)
+		await interaction.response.send_message(embed=embed)
+
+	@client.tree.command(name="about", description="Learn about KnightQuiz")
+	async def about(interaction: discord.Interaction):
+		embed = discord.Embed(
+			title="🗡️ KnightQuiz",
+			description=(
+				"A Discord quiz bot built for fun, competition, and learning.\n\n"
+				"**Features:**\n"
+				"🎯 Random trivia questions\n"
+				"⚡ XP & streaks\n"
+				"🏆 Daily & lifetime leaderboards\n"
+				"⚙️ Server-specific quiz settings\n\n"
+				"Built by Knight0\n"
+				"Version 1.0.0"
+			),
+			color=discord.Color.gold(),
+		)
+		await interaction.response.send_message(embed=embed)
+
 	@client.tree.command(name="leaderboard", description="Show the top quiz players")
 	@app_commands.describe(type="Which leaderboard to view")
 	@app_commands.choices(type=LEADERBOARD_CHOICES)
